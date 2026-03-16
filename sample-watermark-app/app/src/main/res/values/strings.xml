@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">水印相机</string>
+    <string name="capture_button">拍照</string>
+    <string name="watermark_settings">水印设置</string>
+    <string name="template_management">模板管理</string>
+    <string name="position_top_left">左上</string>
+    <string name="position_top_right">右上</string>
+    <string name="position_bottom_left">左下</string>
+    <string name="position_bottom_right">右下</string>
+    <string name="position_center">居中</string>
+    <string name="save_template">保存模板</string>
+    <string name="delete_template">删除模板</string>
+    <string name="permission_required">需要相机权限</string>
+</resources>
