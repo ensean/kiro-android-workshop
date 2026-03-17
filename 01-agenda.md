@@ -26,7 +26,7 @@
 
 ### 1.2 界面与基础交互（15 分钟）
 - Chat 面板使用
-- 上下文引用：`#File`、`#Folder`、`#Problems`
+- 上下文引用：`#File`、`#Folder`、`#Problems`、`#Terminal`、`#Git Diff`
 - 图片/文档附件
 - Autopilot vs Supervised 模式
 

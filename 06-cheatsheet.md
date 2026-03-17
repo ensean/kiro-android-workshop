@@ -4,8 +4,8 @@
 
 | 语法 | 说明 | 示例 |
 |------|------|------|
-| `#File` | 引用单个文件 | `#File src/index.ts` |
-| `#Folder` | 引用整个文件夹 | `#Folder src/watermark` |
+| `#File` | 引用单个文件 | `#File WatermarkRenderer.kt` |
+| `#Folder` | 引用整个文件夹 | `#Folder watermark` |
 | `#Problems` | 当前文件的问题 | `#Problems 帮我修复` |
 | `#Terminal` | 终端输出 | `#Terminal 解释这个错误` |
 | `#Git Diff` | Git 变更 | `#Git Diff 检查这些改动` |
@@ -24,8 +24,8 @@
 - **Fix a Bug** → Bug 修复
 
 ### 工作流选择（仅新功能）
-- **Requirements** → 需求驱动（推荐）
-- **Technical Design** → 设计驱动
+- **Requirements** → 需求优先（推荐）
+- **Design** → 设计优先
 
 ### 执行任务
 ```
@@ -36,7 +36,8 @@
 ### Spec 文件位置
 ```
 .kiro/specs/{feature-name}/
-├── requirements.md    # 或 bugfix.md
+├── .config.kiro           # Spec 配置
+├── requirements.md        # 或 bugfix.md
 ├── design.md
 └── tasks.md
 ```
@@ -62,12 +63,13 @@
 ```markdown
 ---
 inclusion: fileMatch
-fileMatchPattern: "**/*.test.ts"
+fileMatchPattern: "**/*Test.kt"
 ---
 
 # 测试文件规范
-- 使用 describe/it 结构
-- 测试名称要描述行为
+- 使用 @Test 注解标记测试方法
+- 测试名称使用反引号描述行为
+- 使用 AAA 模式（Arrange-Act-Assert）
 ```
 
 ---

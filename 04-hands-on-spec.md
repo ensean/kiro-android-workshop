@@ -58,8 +58,8 @@ looks good，继续
 
 Kiro 会生成 design.md，包含：
 - 系统架构
-- 数据模型（Room Entity / SharedPreferences）
-- Repository 设计
+- 数据模型（SharedPreferences + Gson 序列化）
+- TemplateManager 设计
 - ViewModel 设计
 
 **检查要点：**
@@ -102,7 +102,7 @@ Kiro 会生成 tasks.md，包含：
 
 ### 场景描述
 
-> Bug 报告：在横屏模式下拍照，水印位置会向右偏移约 50 像素，导致水印部分超出图片边界。
+> Bug 报告：在横屏模式下拍照，水印位置会向右偏移约 50 像素。竖屏和横屏使用相同尺寸图片时，水印 x 坐标不应有差异，但实际横屏模式多了一个不正确的偏移量。
 
 ### 步骤 1：启动 Bugfix Spec
 
@@ -111,8 +111,8 @@ Kiro 会生成 tasks.md，包含：
 帮我创建一个 spec 来修复这个 bug：
 
 问题描述：
-- 横屏模式下拍照，水印位置向右偏移约 50px
-- 水印可能超出图片边界
+- 横屏模式下拍照，水印 x 坐标比预期多偏移了 50px
+- 同样尺寸的图片，横屏和竖屏的水印位置应一致，但实际不一致
 - 竖屏模式正常
 
 复现步骤：
@@ -158,35 +158,45 @@ Kiro 会生成 bugfix.md（替代 requirements.md），包含：
 
 Kiro 会建议编写测试来验证 bug：
 
+> 💡 项目中已有 `WatermarkPositionTest.kt`，可以在其中新增以下测试方法，或让 Kiro 创建独立的测试类。
+
 ```kotlin
 // 探索性测试：验证 bug 存在
-class WatermarkPositionBugTest {
+// 可添加到 WatermarkPositionTest.kt 或新建 WatermarkPositionBugTest.kt
+
+@Test
+fun `landscape mode should not add extra offset`() {
+    // 对比竖屏和横屏模式下同一预设的位置差异
+    val presets = listOf(
+        PositionPreset.TOP_LEFT,
+        PositionPreset.TOP_RIGHT,
+        PositionPreset.BOTTOM_LEFT,
+        PositionPreset.BOTTOM_RIGHT,
+        PositionPreset.CENTER
+    )
     
-    @Test
-    fun `landscape mode should not cause position overflow`() {
-        // 测试横屏模式下各种位置预设
-        val presets = listOf(
-            PositionPreset.TOP_LEFT,
-            PositionPreset.TOP_RIGHT,
-            PositionPreset.BOTTOM_LEFT,
-            PositionPreset.BOTTOM_RIGHT,
-            PositionPreset.CENTER
+    presets.forEach { preset ->
+        val portrait = WatermarkPosition.calculatePosition(
+            preset = preset,
+            orientation = Orientation.PORTRAIT,
+            imageWidth = 1000,
+            imageHeight = 800
+        )
+        val landscape = WatermarkPosition.calculatePosition(
+            preset = preset,
+            orientation = Orientation.LANDSCAPE,
+            imageWidth = 1000,
+            imageHeight = 800
         )
         
-        presets.forEach { preset ->
-            val result = WatermarkPosition.calculatePosition(
-                preset = preset,
-                orientation = Orientation.LANDSCAPE,
-                imageWidth = 1920,
-                imageHeight = 1080
-            )
-            
-            // Bug: 横屏时位置可能超出边界
-            assertTrue(
-                "Position x=${result.x} should be within image width",
-                result.x >= 0 && result.x <= 1920
-            )
-        }
+        // Bug: 横屏时 x 坐标被错误地加了 50f 偏移
+        // 同样尺寸的图片，横屏不应该产生额外偏移
+        assertEquals(
+            "Preset $preset: landscape x should equal portrait x",
+            portrait.x,
+            landscape.x,
+            0.1f
+        )
     }
 }
 ```
@@ -232,7 +242,7 @@ class WatermarkPositionBugTest {
 |------|------|
 | Feature Spec | Requirements → Design → Tasks 流程 |
 | Bugfix Spec | Bug Condition 方法论 |
-| Property-Based Testing | 用属性测试验证正确性 |
+| 探索性测试 | 用测试验证 bug 存在并验证修复 |
 | 任务执行 | 让 Kiro 实现具体任务 |
 
 ---

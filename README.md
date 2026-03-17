@@ -36,14 +36,18 @@ sample-watermark-app/
 │   ├── build.gradle.kts
 │   └── src/
 │       ├── main/java/com/example/watermarkcamera/
-│       │   ├── watermark/           # 水印渲染核心
+│       │   ├── MainActivity.kt          # 主界面 & 相机控制
+│       │   ├── watermark/               # 水印渲染核心
 │       │   │   ├── WatermarkConfig.kt
 │       │   │   ├── WatermarkPosition.kt
 │       │   │   └── WatermarkRenderer.kt
-│       │   └── template/            # 模板管理
-│       │       ├── TemplateManager.kt
-│       │       └── DefaultTemplates.kt
-│       └── test/java/               # 单元测试
+│       │   ├── template/                # 模板管理
+│       │   │   ├── TemplateManager.kt
+│       │   │   └── DefaultTemplates.kt
+│       │   └── location/                # GPS 定位
+│       │       └── LocationHelper.kt
+│       └── test/java/                   # 单元测试
+│           └── WatermarkPositionTest.kt
 └── settings.gradle.kts
 ```
 

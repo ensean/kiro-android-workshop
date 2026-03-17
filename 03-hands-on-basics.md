@@ -11,13 +11,15 @@
 
 2. 在 Chat 面板输入：
 ```
-#File app/src/main/java/com/example/watermarkcamera/watermark/WatermarkRenderer.kt
+#File WatermarkRenderer.kt
 
 请解释这个文件的核心逻辑，特别是：
 1. 水印是如何渲染到 Bitmap 上的？
 2. 支持哪些水印类型？
 3. Android Canvas 绑定方面有什么考虑？
 ```
+
+> 💡 **提示：** `#File` 后面直接写文件名即可，Kiro 会自动在项目中搜索匹配的文件。也可以在 Chat 输入框中输入 `#` 后从弹出列表中选择文件。
 
 3. 观察 Kiro 的回答，注意它如何：
    - 识别关键函数
@@ -38,10 +40,12 @@ Kiro 会给出结构化的代码解释，包括函数调用关系和核心算法
 
 1. 在 Chat 面板输入：
 ```
-#Folder app/src/main/java/com/example/watermarkcamera/watermark
+#Folder watermark
 
 分析这个文件夹中的 Kotlin 代码，找出可能存在的 bug 或边界情况处理不当的地方。
 ```
+
+> 💡 **提示：** `#Folder` 后面写文件夹名即可，不需要完整路径。Kiro 会自动匹配项目中的文件夹。
 
 2. 查看 Kiro 的分析结果
 
@@ -71,7 +75,7 @@ Kiro 会列出潜在问题，如：
 
 2. 在 Chat 面板输入：
 ```
-#File app/src/main/java/com/example/watermarkcamera/watermark/WatermarkPosition.kt
+#File WatermarkPosition.kt
 
 为这个文件中的所有公共函数添加 KDoc 注释，包括：
 - 函数描述
@@ -86,6 +90,8 @@ Kiro 会列出潜在问题，如：
 ```
 请应用这些修改
 ```
+
+> 💡 **模式提示：** Autopilot 模式下 Kiro 会直接修改文件；Supervised 模式下会先展示变更，等你确认后再应用。
 
 ### 预期结果
 Kiro 会生成规范的 KDoc 注释，并可以直接应用到代码中。
@@ -145,7 +151,7 @@ Kiro 会基于图片内容给出技术实现建议。
 
 | 技能 | 说明 |
 |------|------|
-| 上下文引用 | `#File`、`#Folder`、`#Problems` |
+| 上下文引用 | `#File`、`#Folder`、`#Problems`、`#Terminal`、`#Git Diff` |
 | 代码理解 | 让 Kiro 解释复杂逻辑 |
 | 问题发现 | 利用 AI 分析潜在 bug |
 | 代码生成 | 自动生成注释和文档 |
