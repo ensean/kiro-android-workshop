@@ -40,8 +40,8 @@ brew install --cask kiro
 ### 克隆示例代码库
 
 ```bash
-git clone https://github.com/your-org/watermark-camera-workshop.git
-cd watermark-camera-workshop
+git clone https://github.com/ensean/kiro-android-workshop.git
+cd kiro-android-workshop
 ```
 
 ### 用 Android Studio 打开项目
